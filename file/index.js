@@ -3,10 +3,11 @@ var fs = require('fs');
 // Crear una instancia del servidor htpp
 var server = http.createServer(atenderServidor);
 
+
 console.log("Servidor iniciado");
 
 //Iniciar la escucha del servidor en el puerto 8088
-server.listen(8088);
+server.listen(process.env.PORT || 5000);
 
 function atenderServidor(request,response){
     console.log("Peticion recibida :" + request.url);
