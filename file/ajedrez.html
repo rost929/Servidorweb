@@ -1,0 +1,205 @@
+<html>
+    	
+ <head>
+    <title> Ajedrez </title>
+	<style>
+	
+	table{
+	border-collapse:collapse;
+	}
+	
+	th{
+	border-width: 2px;
+	border-color: black;
+	width:50px;
+	height:50px;
+	font-size:40px;
+	background-color: beige;
+	text-align:center;
+    cursor: pointer;
+	}
+        
+        span{
+            font-size: 2em;
+        }    
+	
+		
+	tr:nth-child(odd) th:nth-child(even), tr:nth-child(even) th:nth-child(odd){
+	background-color: green;
+	}
+	
+	table>tr>th.seleccionado { background-color: blue; !important}
+	</style>
+	<script>
+	
+function programarClicks(){
+	// Recorre todo elementos td en la tabla y les asigna el listener onclick
+	// window.alert( "Voy a programar los clicks" );
+	// Buscar todas las casillas y guardar en un Array
+	var casillas = document.querySelectorAll( "table th" );
+	
+	// Recorrer el Array
+	for( var i=0; i < casillas.length; i++ ){
+		// Programa el evento onclick para que llame al metodo elegir()
+		casillas[i].addEventListener( "click", elegir );
+	}
+	
+}	
+	
+function elegir( ev, obj ){
+	// Determinar si hay una seleccion anterior
+	var seleccionado = document.querySelector( ".seleccionado" );
+
+	if( seleccionado == null ){
+		// No hay una seleccion previa
+		// Cambiar la clase de la celda para mostrarla en otro color
+		if( ev.target.innerText != "" ){
+			ev.target.classList.add( "seleccionado" );
+			ev.target.style.backgroundColor = "yellow";
+		}
+	} else {
+		// Ya habia un elemento seleccionado
+		var anterior = color(seleccionado.innerText.charCodeAt(0));
+        var comidoBlanco = document.getElementById( "carcelBlanco" );
+        var comidoNegro = document.getElementById( "carcelNegro" );
+		if(ev.target.innerText != "")
+		{
+		var actual = color(ev.target.innerText.charCodeAt(0));
+		
+		if(anterior == actual)
+		{
+		window.alert( "Ya hay una ficha del mismo color");
+		
+		}else // comerse una ficha
+		{
+       if(actual==0){
+        comidoBlanco.innerText+=ev.target.innerText;  
+        }else{
+          comidoNegro.innerText+=ev.target.innerText; 
+          }
+        ev.target.innerText = seleccionado.innerText;
+		seleccionado.innerText = "";
+		seleccionado.style.backgroundColor = "";
+		seleccionado.classList.remove("seleccionado" );
+		}
+		
+		}else 
+		{
+		ev.target.innerText = seleccionado.innerText;
+		seleccionado.innerText = "";
+		seleccionado.style.backgroundColor = "";
+		seleccionado.classList.remove("seleccionado" );
+		}
+		
+		//window.alert( "Ya hay una casilla seleccionada "+ es );
+		
+	}
+}
+function color(caracter)
+{
+	var n = parseInt(caracter);
+	if(n >= 9818 && n <= 9823)
+	{
+	return 0;
+	}else
+	return 1;
+}
+
+</script>
+
+	
+
+ </head>
+  
+ <body onload="programarClicks();"> 
+  <H1> Ajedrez </H1>
+         <span id="carcelBlanco"></span>
+		<table border=1>
+		 <tr>
+		 <th> &#9820; </th>
+		 <th> &#9822; </th>
+		 <th> &#9821; </th>
+		 <th> &#9818; </th>
+		 <th> &#9819; </th>
+		 <th> &#9821; </th>
+		 <th> &#9822; </th>
+		 <th> &#9820; </th>
+		 </tr>
+		 <tr>
+		 <th> &#9823; </th>
+		 <th> &#9823; </th>
+		 <th> &#9823; </th>
+		 <th> &#9823; </th>
+		 <th> &#9823; </th>
+		 <th> &#9823; </th>
+		 <th> &#9823; </th>
+		 <th> &#9823; </th>
+		 </tr>
+		 <tr>
+		 <th></th>
+		 <th></th>
+		 <th></th>
+		 <th></th>
+		 <th></th>
+		 <th></th>
+		 <th></th>
+		 <th></th>
+		 </tr>
+		 <tr>
+		 <th></th>
+		 <th></th>
+		 <th></th>
+		 <th></th>
+		 <th></th>
+		 <th ></th>
+		 <th></th>
+		 <th></th>
+		 </tr>
+		 <tr>
+		 <th></th>
+		 <th></th>
+		 <th></th>
+		 <th></th>
+		 <th></th>
+		 <th></th>
+		 <th></th>
+		 <th></th>
+		 </tr>
+		<tr>
+		 <th></th>
+		 <th></th>
+		 <th></th>
+		 <th></th>
+		 <th></th>
+		 <th></th>
+		 <th></th>
+		 <th></th>
+		 </tr>
+		 <tr>
+		 <th> &#9817; </th>
+		 <th> &#9817; </th>
+		 <th> &#9817; </th>
+		 <th> &#9817; </th>
+		 <th> &#9817; </th>
+		 <th> &#9817; </th>
+		 <th> &#9817; </th>
+		 <th> &#9817; </th>
+		 </tr>
+		 <tr>
+		 <th> &#9814; </th>
+		 <th> &#9816; </th>
+		 <th> &#9815; </th>
+		 <th> &#9813; </th>
+         <th> &#9812; </th>
+         <th> &#9815; </th>
+		 <th> &#9816; </th>
+	     <th> &#9814; </th>
+		 </tr>
+	    
+		</table>
+     
+        <span id="carcelNegro"></span>
+ 
+ </body>
+	
+</html>
